@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="container">
+        <div class="row g-3"> 
+            {% for laptop in laptops %}
+                <div class="col-md-4 mb-4">
+                    <div class="card">
+                        <img class="card-img-top" src="{{ laptop.image.imageUrl }}" alt="{{ laptop.title }}">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ laptop.title }}</h5>
+                            <p class="card-text">Price: {{ laptop.price.value }} {{ laptop.price.currency }}</p>
+                            <a href="{{ laptop.itemAffiliateWebUrl }}" class="btn btn-primary" target="_blank">View on eBay</a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

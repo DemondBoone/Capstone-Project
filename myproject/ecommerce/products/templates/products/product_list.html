@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block title %}Products - E-commerce Website{% endblock %}
+
+{% block content %}
+<!-- I made not even need to use this but Ill have a class for the various product items if required -->
+    <h2>Products</h2>
+    <div class="product-list">
+        {% for product in products %}
+            <div class="product-item">
+                <h3>{{ product.name }}</h3>
+                <img src="{{ product.image.url }}" alt="{{ product.name }}" width="150" />
+                <p>{{ product.description }}</p>
+                <p>Price: ${{ product.price }}</p>
+                <a href="#">Add to Cart</a>
+            </div>
+        {% empty %}
+            <p>No products available at the moment.</p>
+        {% endfor %}
+    </div>
+{% endblock %}

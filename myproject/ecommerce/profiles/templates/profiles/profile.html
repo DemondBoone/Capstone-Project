@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block title %}Profile - E-commerce Website{% endblock %}
+
+{% block content %}
+    <h2>Your Profile</h2>
+    {% if user.is_authenticated %}
+        <p>Welcome, {{ user.username }}!</p>
+        <p>Email: {{ user.email }}</p>
+        <p>First Name: {{ user.first_name }}</p>
+        <p>Last Name: {{ user.last_name }}</p>
+        <a href="{% url 'logout' %}">Logout</a>
+        {% else %}
+        <p>You are not logged in.</p>
+        <p><a href="{% url 'login' %}">Login</a> or <a href="{% url 'register' %}">Register</a></p>
+    {% endif %}
+{% endblock %}
