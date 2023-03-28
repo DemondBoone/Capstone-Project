@@ -3,8 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login, logout
 from .forms import RegistrationForm
 
-
-# Most of this is built in django taken from my last project
+# This is similar to what was done on the last project
 def register(request):
     if request.method == "POST":
         form = RegistrationForm(request.POST)
@@ -16,10 +15,12 @@ def register(request):
         form = RegistrationForm()
     return render(request, "profiles/register.html", {"form": form})
 
+
 @login_required
 def profile(request):
     return render(request, 'profiles/profile.html')
 
+#this function does not work for some reason
 def logout_view(request):
     logout(request)
     return redirect('register') 

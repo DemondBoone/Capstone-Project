@@ -2,14 +2,16 @@
 
 {% block content %}
     <div class="container">
-        <div class="row g-3"> 
+        <div class="row g-3">
             {% for laptop in laptops %}
-                <div class="col-md-4 mb-4">
-                    <div class="card">
-                        <img class="card-img-top" src="{{ laptop.image.imageUrl }}" alt="{{ laptop.title }}">
+            <!-- I will need to correct the next two lines somehow because my photos continue to get cut off -->
+                <div class="col-12 col-sm-6 col-md-4 mb-4"> 
+                    <div class="card h-100" style="width: 100%;"> 
+                        <img class="card-img-top" src="{{ laptop.image.imageUrl }}" alt="{{ laptop.title }}" style="height: 150px; width: 100%;">
                         <div class="card-body">
                             <h5 class="card-title">{{ laptop.title }}</h5>
                             <p class="card-text">Price: {{ laptop.price.value }} {{ laptop.price.currency }}</p>
+                            <!-- this will allow the user to go to ebay where they can purchase the products -->
                             <a href="{{ laptop.itemAffiliateWebUrl }}" class="btn btn-primary" target="_blank">View on eBay</a>
                         </div>
                     </div>

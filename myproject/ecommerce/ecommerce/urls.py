@@ -16,7 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from profiles.views import profile
-
+from apitest import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('products.urls')),
@@ -25,4 +25,17 @@ urlpatterns = [
     path('products/', include('apitest.urls')),
     path('', include('apitest.urls')),
     path('accounts/profile/', profile, name='profile'),
+    path('products/', views.test_ebay_api, name='test_ebay_api'),  
 ]
+
+
+# urlpatterns = [
+#     path('admin/', admin.site.urls),
+#     path('', include('products.urls')),
+#     path('', include('profiles.urls')),  # Remove 'profile/'
+#     path('accounts/', include('django.contrib.auth.urls')),
+#     path('products/', include('apitest.urls')),
+#     path('', include('apitest.urls')),
+#     path('accounts/profile/', profile, name='profile'),
+#     path('products/', views.test_ebay_api, name='test_ebay_api'),  # Update the path here
+# ]

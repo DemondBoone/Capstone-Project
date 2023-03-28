@@ -3,7 +3,6 @@ import requests
 from django.http import JsonResponse #this will allow me to send stuff in json
 from django.shortcuts import render
 
-
 # Add the get_ebay_oauth_access_token function, this will be what gets my oauth access token, remember the differences between the oatuh token and the regular token, there are also two different modes
 def get_ebay_oauth_access_token(client_id, client_secret, is_sandbox=True):
     base_url = 'https://api.sandbox.ebay.com' if is_sandbox else 'https://api.ebay.com' #because im in sandbox but needed to swith to productions
@@ -25,7 +24,7 @@ def get_ebay_oauth_access_token(client_id, client_secret, is_sandbox=True):
     else:
         raise Exception(f'Error obtaining access token: {response.text}')
 
-# I Updated 03/21/23 the test_ebay_api view
+# I Updated 03/21/23 the test_ebay_api view, this isnt an appropriate name for it anymore
 def test_ebay_api(request):
     client_id = 'DemondBo-projectc-PRD-2cd640c06-af32d4fb'
     client_secret = 'PRD-cd640c06271b-44a0-4484-9cca-8f4d'
@@ -44,13 +43,38 @@ def test_ebay_api(request):
         'q': 'laptop',
         'limit': '10',
     }
-
-
 #i have collected the json from my response
     response = requests.get(url, headers=headers, params=params)
     data = response.json() #parsed my data, ive actually saw the json data for and ideo on information
     laptops = data.get('itemSummaries', [])[:5]  # extract the five lines, which is causing it randomly this will Extract the first 5 laptops from the response/ dont forget to change the variable
     return render(request, 'laptops.html', {'laptops': laptops}) #try this code if failed 
+
+##################
+def test_ebay_api(request):
+    client_id = 'DemondBo-projectc-PRD-2cd640c06-af32d4fb'
+    client_secret = 'PRD-cd640c06271b-44a0-4484-9cca-8f4d'
+    is_sandbox = False
+
+    access_token = get_ebay_oauth_access_token(client_id, client_secret, is_sandbox)
+    base_url = 'https://api.sandbox.ebay.com' if is_sandbox else 'https://api.ebay.com'
+
+    url = f'{base_url}/buy/browse/v1/item_summary/search'
+    headers = {
+        'Authorization': f'Bearer {access_token}',
+        'Content-Type': 'application/json',
+        'X-EBAY-C-ENDUSERCTX': 'affiliateCampaignId=ePNCampaignId,contextualLocation=country=US,zip=95125'
+    }
+    params = {
+        'q': 'military equipment',
+        'limit': '10',
+    }
+
+    response = requests.get(url, headers=headers, params=params)
+    data = response.json()
+    laptops = data.get('itemSummaries', [])[:6]  # Extract the first 6 items from the response
+    return render(request, 'laptops.html', {'laptops': laptops})  # Render the results using the 'laptops.html' template
+
+
 
 
 
